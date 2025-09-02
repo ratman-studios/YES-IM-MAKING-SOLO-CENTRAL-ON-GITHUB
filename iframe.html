@@ -124,31 +124,14 @@
   </script>
 
   <script>
-    const frame = document.getElementById("game-frame");
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const fullHash = window.location.hash.substring(1);
-
-    if (fullHash) {
-      frame.src = fullHash;
-    } else {
-      frame.srcdoc = "<h2 style='color:white;text-align:center;padding-top:40%'>no game selected</h2>";
-    }
-
-    function refreshGame() {
-      frame.src = frame.src;
-    }
-    function fullscreenGame() {
-      if (frame.requestFullscreen) {
-        frame.requestFullscreen();
-      } else if (frame.mozRequestFullScreen) {
-        frame.mozRequestFullScreen();
-      } else if (frame.webkitRequestFullscreen) {
-        frame.webkitRequestFullscreen();
-      } else if (frame.msRequestFullscreen) {
-        frame.msRequestFullscreen();
-      }
-    }
+    const header=document.getElementById('header')
+    const frame=document.getElementById('game-frame')
+    const loader=document.getElementById('loader')
+    function size(){const h=header.offsetHeight||80;frame.style.top=h+'px';frame.style.height='calc(100vh - '+h+'px)'}
+    window.addEventListener('resize',size)
+    size()
+    const u=new URLSearchParams(location.search).get('url')
+    if(u){frame.src=u;frame.addEventListener('load',()=>{loader.style.display='none'})}else{loader.textContent='solo central error, OUR fault twin not yours.'}
   </script>
 </body>
 </html>
